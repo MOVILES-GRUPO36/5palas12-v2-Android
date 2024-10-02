@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "92616769945",
+    "project_id": "palas12-2d17f",
+    "storage_bucket": "palas12-2d17f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92616769945:android:34a510e7dcd13c776f9308",
+        "android_client_info": {
+          "package_name": "com.cincopalasdoce.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3dEt6XpBu4XNmcnFHfGNTzyYGkmKjgyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92616769945:android:1dea99db088e8a386f9308",
+        "android_client_info": {
+          "package_name": "com.papigelvez.a5palas12"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3dEt6XpBu4XNmcnFHfGNTzyYGkmKjgyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
