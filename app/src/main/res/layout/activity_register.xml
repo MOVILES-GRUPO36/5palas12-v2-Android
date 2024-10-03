@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    style="@style/groupStylegray_300"
     >
 
 
@@ -13,6 +14,7 @@
         android:text="Let's save the"
         android:gravity="center"
         android:textSize="40sp"
+        style="@style/txtInterregular40"
         />
     <TextView
         android:layout_width="match_parent"
@@ -20,6 +22,7 @@
         android:text="planet together!"
         android:gravity="center"
         android:textSize="40sp"
+        style="@style/txtInterregular40"
         />
 
     <EditText
@@ -30,6 +33,8 @@
         android:hint="Full name"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        android:layout_marginTop="10.31dp"
+        style="@style/etRoundedOutline"
         />
 
     <EditText
@@ -40,6 +45,8 @@
         android:hint="Telephone number"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        android:layout_marginTop="10.31dp"
+        style="@style/etRoundedOutline"
         />
 
     <EditText
@@ -50,6 +57,8 @@
         android:hint="E-mail"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        android:layout_marginTop="10.31dp"
+        style="@style/etRoundedOutline"
         />
 
     <EditText
@@ -60,6 +69,8 @@
         android:hint="Password"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        android:layout_marginTop="10.31dp"
+        style="@style/etRoundedOutline"
         />
 
     <EditText
@@ -70,6 +81,8 @@
         android:hint="Confirm password"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        android:layout_marginTop="10.31dp"
+        style="@style/etRoundedOutline"
         />
 
     <Button
@@ -82,6 +95,7 @@
         android:textSize="40sp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        style="@style/btnSolidRounded"
         />
 
     <LinearLayout
@@ -95,6 +109,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:text="Already have an account? Login"
+            android:textSize="18dp"
             />
 
     </LinearLayout>
