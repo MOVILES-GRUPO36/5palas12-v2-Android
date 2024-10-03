@@ -1,9 +1,11 @@
 package com.papigelvez.a5palas12.map
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +20,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.firestore
 import com.papigelvez.a5palas12.R
 import com.papigelvez.a5palas12.databinding.ActivityMapBinding
 import com.papigelvez.a5palas12.home.HomeActivity
@@ -38,7 +43,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
 
 
 
@@ -95,11 +99,51 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
 
         val latLng = LatLng(currentLocation.latitude, currentLocation.longitude)
-        val markerOptions = MarkerOptions().position(latLng).title("Current Location")
+        var markerOptions = MarkerOptions().position(latLng).title("Current Location")
 
         googleMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 7f))
         googleMap?.addMarker(markerOptions)
 
+        fetchRestaurantLocation { document ->
+            if (document != null) {
+                // Process the document
+                val lat = document.getDouble("lat")
+                val lng = document.getDouble("lng")
+                // Handle the location or mark it on the map
+                if (lat != null && lng != null) {
+                    val location = LatLng(lat, lng)
+                    markerOptions = MarkerOptions().position(latLng)
+                    googleMap.addMarker(MarkerOptions()
+                        .position(location)
+                        .title(document.getString("name")))
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
+                }
+
+            }
+        }
+
     }
+
+    private fun fetchRestaurantLocation(callback: (DocumentSnapshot?) -> Unit) {
+        val db = Firebase.firestore
+        val lugares = db.collection("lugares")
+
+        val docRef = lugares.document("restLaCand1")
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                    callback(document) // Return the document via callback
+                } else {
+                    Log.d(TAG, "No such document")
+                    callback(null) // Document does not exist
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
+                callback(null) // Return null on failure
+            }
+    }
+
 }
