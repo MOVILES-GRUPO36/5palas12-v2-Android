@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="start"
+    android:id="@+id/linearViewhierarchy"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    style="@style/groupStylewhite_1">
+
+    <ImageView
+        android:id="@+id/imageSushiImage1"
+        android:layout_height="@dimen/_102pxh"
+        android:layout_width="@dimen/_369pxh"
+        android:scaleType="fitXY"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/img_image" />
+
+    <TextView
+        android:ellipsize="end"
+        android:id="@+id/txtSushiText"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8pxh"
+        android:layout_marginTop="@dimen/_6pxv"
+        android:layout_width="match_parent"
+        android:singleLine="true"
+        android:text="@string/lbl_yamamoto_sushi"
+        style="@style/txtInterbold24"
+        tools:text="@string/lbl_yamamoto_sushi" />
+
+    <TextView
+        android:ellipsize="end"
+        android:id="@+id/txtFoodText"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8pxh"
+        android:layout_marginTop="@dimen/_7pxv"
+        android:layout_width="match_parent"
+        android:singleLine="true"
+        android:text="@string/msg_sushi_ramen"
+        style="@style/txtInterregular16"
+        tools:text="@string/msg_sushi_ramen" />
+
+    <ImageView
+        android:id="@+id/imageSushiImage2"
+        android:layout_height="@dimen/_23pxh"
+        android:layout_marginBottom="@dimen/_6pxv"
+        android:layout_marginStart="@dimen/_8pxh"
+        android:layout_marginTop="@dimen/_7pxv"
+        android:layout_width="@dimen/_95pxh"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_group_8"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/img_group_8" />
+
+</LinearLayout>

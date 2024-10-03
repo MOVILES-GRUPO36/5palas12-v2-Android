@@ -10,6 +10,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.papigelvez.a5palas12.R
 import com.papigelvez.a5palas12.databinding.ActivityLoginBinding
+import com.papigelvez.a5palas12.home.HomeActivity
 import com.papigelvez.a5palas12.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -41,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
 
                     if (it.isSuccessful) {
-                        val intent = Intent(this, LoginActivity::class.java)
+                        val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)

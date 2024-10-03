@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">5 pa\' las 12</string>
-    <string name="title_activity_login2">LoginActivity2</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -9,4 +8,122 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="loading">Loading?</string>
+    <string name="no_internet_connection">No internet connection!</string>
+    <string name="lbl_back">Back</string>
+    <string name="msg_bread_cakes">Bread - Cakes - Pastries</string>
+    <string name="msg_los_fulanitos_restaurante">Los Fulanitos Restaurante</string>
+    <string name="msg_you_have_an_account">You have an account? Log in</string>
+    <string name="lbl_user_name">User Name</string>
+    <string name="msg_you_re_ready_to">You\u2019re ready to enjoy some delicious meals and even save some money while you do it!
+Wow, you\u2019re awesome!!</string>
+    <string name="msg_panader_a_san_carlos">Panader?a San Carlos</string>
+    <string name="lbl_save_the_planet">save the planet</string>
+    <string name="lbl_home">Home</string>
+    <string name="lbl_5_pa_las_12">5 pa\u2019 las 12</string>
+    <string name="lbl_sushi">Sushi</string>
+    <string name="lbl_pizza">Pizza</string>
+    <string name="lbl_close_to_you">Close to you</string>
+    <string name="lbl_at_what_time">At what time?</string>
+    <string name="lbl_all_set">All set!
+?</string>
+    <string name="msg_calle_93b_11a">Calle 93b #11a - 70</string>
+    <string name="lbl_log_in">Log in</string>
+    <string name="lbl_payment_methods">Payment Methods </string>
+    <string name="lbl_e_mail">E-mail</string>
+    <string name="msg_ara_chic_carrera">Ara (Chic? Carrera 15)</string>
+    <string name="lbl_log_out">Log out</string>
+    <string name="msg_giving_away_now">Giving away now!</string>
+    <string name="msg_hello_sushi_lovers_at">Hello, sushi lovers!
+
+At Yamamoto Sushi, we take great pride in preparing the freshest, most delicious sushi for our customers. Today, we\u2019re excited to offer a special 5 pa\u2019 las 12 package, perfect for anyone looking to enjoy high-quality sushi while helping to reduce food waste.
+
+Inside this package, you\u2019ll find a delightful selection of our chef\u2019s favorites, including:
+
+Freshly made nigiri (tuna, salmon, shrimp) with perfectly seasoned rice
+Assorted maki rolls, combining classic flavors like avocado, cucumber, and crab
+A few pieces of our signature rolls that vary daily based on availability, always a wonderful surprise!
+A small side of edamame or seaweed salad for that extra touch of freshness
+
+We guarantee you\u2019ll receive a generous assortment of sushi that\u2019s just as delicious as what we serve in-house. This is our way of giving back to the community while ensuring nothing goes to waste. Enjoy it at a fraction of the price and discover the heart of Yamamoto Sushi with every bite.
+
+Thank you for helping us on our mission to reduce food waste and enjoy amazing sushi at the same time!</string>
+    <string name="msg_fruits_vegetables">Fruits - Vegetables</string>
+    <string name="msg_oxxo_calle_95">OXXO (Calle 95 - WTC) </string>
+    <string name="msg_sushi_ramen">Sushi - Ramen - Fried Rice</string>
+    <string name="msg_bread_pastries">Bread - Pastries - Sweets</string>
+    <string name="msg_you_have_an_account2">You have an account? </string>
+    <string name="lbl_go_home">Go home!</string>
+    <string name="lbl_cancel">Cancel</string>
+    <string name="lbl_profile">Profile</string>
+    <string name="lbl_yamamoto">Yamamoto</string>
+    <string name="lbl">!</string>
+    <string name="lbl_register">Register</string>
+    <string name="lbl_repeat_password">Repeat password</string>
+    <string name="lbl_card_1_5987">Card 1 - 5987</string>
+    <string name="lbl_save">Save</string>
+    <string name="msg_don_t_you_have_an">Don\u2019t you have an account? Register</string>
+    <string name="lbl_search">Search</string>
+    <string name="lbl_to">to </string>
+    <string name="lbl_bread">Bread</string>
+    <string name="msg_to_5_pa_las_12">to 5 pa\u2019 las 12!</string>
+    <string name="msg_yamamoto_sushi">Yamamoto Sushi, we take great pride in preparing the freshest, most delicious sushi for our customers. Today, we\u2019re excited to offer a special 5 pa\u2019 las 12 package, perfect for anyone looking to enjoy high-quality sushi while helping to reduce food waste.
+
+Inside this package, you\u2019ll find a delightful selection of our chef\u2019s favorites, including:
+
+Freshly made nigiri (tuna, salmon, shrimp) with perfectly seasoned rice
+Assorted maki rolls, combining classic flavors like avocado, cucumber, and crab
+A few pieces of our signature rolls that vary daily based on availability, always a wonderful surprise!
+A small side of edamame or seaweed salad for that extra touch of freshness
+
+We guarantee you\u2019ll receive a generous assortment of sushi that\u2019s just as delicious as what we serve in-house. This is our way of giving back to the community while ensuring nothing goes to waste. Enjoy it at a fraction of the price and discover the heart of Yamamoto Sushi with every bite.
+
+Thank you for helping us on our mission to reduce food waste and enjoy amazing sushi at the same time!</string>
+    <string name="lbl_card_2_3419">Card 2 - 3419</string>
+    <string name="lbl_1">1</string>
+    <string name="lbl_2">2</string>
+    <string name="lbl_your_feed">Your feed</string>
+    <string name="lbl_3">3</string>
+    <string name="lbl_4">4</string>
+    <string name="lbl_5">5</string>
+    <string name="lbl_hi_welcome">Hi! Welcome</string>
+    <string name="lbl_6">6</string>
+    <string name="msg_useremail_gmail_com">useremail@gmail.com</string>
+    <string name="lbl_salads">Salads</string>
+    <string name="lbl_maps">Maps</string>
+    <string name="msg_colombian_typical">Colombian - Typical Latin American</string>
+    <string name="lbl_save_it_for_me">Save it for me!</string>
+    <string name="lbl_together">together!</string>
+    <string name="msg_where_to_pick_it">Where to pick it up?</string>
+    <string name="lbl_burger">Burger</string>
+    <string name="msg_chapinero_bogot">Chapinero, Bogot? D.C., Colombia </string>
+    <string name="msg_price_cop_40_000">Price: COP $40.000</string>
+    <string name="lbl_adresses">Adresses</string>
+    <string name="msg_pick_up_time_10_00">Pick-up time: 10:00 p.m. - 10:30 p.m.</string>
+    <string name="msg_we_curated_the_restaurants">We curated the restaurants selection based on your location and based on you, we hope you enjoy our picks!</string>
+    <string name="lbl_complete_name">Complete name</string>
+    <string name="msg_user_name_usere">User Name
+useremail@gmail.com
++57 315 448 9087</string>
+    <string name="lbl_password">Password</string>
+    <string name="msg_don_t_you_have_an2">Don\u2019t you have an account? </string>
+    <string name="lbl_for_pick_up_at">For pick-up at </string>
+    <string name="lbl_315_448_9087">315 448 9087 </string>
+    <string name="lbl_settings">Settings  </string>
+    <string name="msg_what_s_the_offer">What\u2019s the offer?</string>
+    <string name="lbl_tacos">Tacos</string>
+    <string name="msg_mercado_corabastos">Mercado Corabastos</string>
+    <string name="lbl_10_00_10_30">10:00 - 10:30</string>
+    <string name="msg_hello_sushi_lovers_at2">Hello, sushi lovers!
+
+At </string>
+    <string name="msg_let_s_save_the_planet">Let\u2019s save the planet together!</string>
+    <string name="msg_for_pick_up_at_10_00">For pick-up at 10:00 - 10:30</string>
+    <string name="msg_bread_vegetables">Bread - Vegetables - Drinks</string>
+    <string name="lbl_let_s">Let\u2019s</string>
+    <string name="lbl_yamamoto_sushi">Yamamoto Sushi </string>
+    <string name="msg_view_full_list_of">View full list of businesses -&gt;</string>
+    <string name="msg_telephone_number">Telephone number</string>
+    <!--TODO ENTER YOUR_API_KEY-->
+    <string name="str_maps_api_key">MAPS_API_KEY</string>
 </resources>
