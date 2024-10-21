@@ -28,6 +28,16 @@ class LoginActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        initUI()
+
+        enableEdgeToEdge()
+    }
+
+    private fun initUI() {
+        initListeners()
+    }
+
+    private fun initListeners() {
         binding.txtRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
@@ -54,7 +64,5 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Empty fields are not allowed", Toast.LENGTH_SHORT).show()
             }
         }
-
-        enableEdgeToEdge()
     }
 }

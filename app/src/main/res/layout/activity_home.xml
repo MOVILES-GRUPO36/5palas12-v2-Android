@@ -133,7 +133,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearColumnsearch"
+                android:id="@+id/linearColumnSearch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2pxv"
@@ -163,7 +163,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearColumnmaps"
+                android:id="@+id/linearColumnMaps"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2pxv"
@@ -195,7 +195,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearColumnprofile"
+                android:id="@+id/linearColumnProfile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2pxv"

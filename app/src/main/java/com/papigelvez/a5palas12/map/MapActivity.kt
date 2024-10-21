@@ -26,6 +26,8 @@ import com.google.firebase.firestore.firestore
 import com.papigelvez.a5palas12.R
 import com.papigelvez.a5palas12.databinding.ActivityMapBinding
 import com.papigelvez.a5palas12.home.HomeActivity
+import com.papigelvez.a5palas12.profile.ProfileActivity
+import com.papigelvez.a5palas12.search.SearchActivity
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -45,15 +47,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
 
-
         getCurrentLocationUser()
 
-
-
-        binding.linearColumnhome.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-        }
+        initUI()
 
     }
 
@@ -144,6 +140,25 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 Log.d(TAG, "get failed with ", exception)
                 callback(null) // Return null on failure
             }
+    }
+
+    private fun initUI() {
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.linearColumnHome.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+        binding.linearColumnSearch.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        }
+        binding.linearColumnProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

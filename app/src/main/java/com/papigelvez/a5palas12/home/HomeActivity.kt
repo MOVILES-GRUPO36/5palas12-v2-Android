@@ -9,7 +9,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.papigelvez.a5palas12.R
 import com.papigelvez.a5palas12.databinding.ActivityHomeBinding
 import com.papigelvez.a5palas12.map.MapActivity
+import com.papigelvez.a5palas12.profile.ProfileActivity
 import com.papigelvez.a5palas12.register.RegisterActivity
+import com.papigelvez.a5palas12.search.SearchActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -23,8 +25,24 @@ class HomeActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.linearColumnmaps.setOnClickListener {
+        initUI()
+    }
+
+    private fun initUI() {
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.linearColumnMaps.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
+        }
+        binding.linearColumnSearch.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        }
+        binding.linearColumnProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
     }
