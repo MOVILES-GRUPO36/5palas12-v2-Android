@@ -46,7 +46,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-
         getCurrentLocationUser()
 
         initUI()

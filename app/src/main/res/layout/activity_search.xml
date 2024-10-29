@@ -7,4 +7,153 @@
     android:layout_height="match_parent"
     tools:context=".search.SearchActivity">
 
+    <FrameLayout
+        android:id="@+id/frameBottombar"
+        style="@style/groupStylegray_800cornerRadius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearRowhome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_21pxv"
+            android:layout_marginBottom="@dimen/_21pxv"
+            android:baselineAligned="true"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/linearColumnHome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_8pxh"
+                android:paddingEnd="@dimen/_8pxh">
+
+                <ImageView
+                    android:id="@+id/imageHomeImage"
+                    android:layout_width="@dimen/_32pxh"
+                    android:layout_height="@dimen/_32pxh"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_3pxv"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_icons8_home_100"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/img_icons8_home_100" />
+
+                <TextView
+                    android:id="@+id/txtHome"
+                    style="@style/txtInderregular10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2pxh"
+                    android:layout_marginEnd="@dimen/_2pxh"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="@string/lbl_home"
+                    tools:text="@string/lbl_home" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearColumnSearch"
+                android:layout_width="0dp"
+                style="@style/groupStylegray_600cornerRadius"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2pxv"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageSearchImage"
+                    android:layout_width="@dimen/_32pxh"
+                    android:layout_height="@dimen/_32pxh"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_icons8_search_100"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/img_icons8_search_100" />
+
+                <TextView
+                    android:id="@+id/txtSearch"
+                    style="@style/txtInterregular10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="@string/lbl_search"
+                    tools:text="@string/lbl_search" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearColumnMaps"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2pxv"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageMapsImage"
+                    android:layout_width="@dimen/_32pxh"
+                    android:layout_height="@dimen/_32pxh"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_icons8_map_100_1"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/img_icons8_map_100_1" />
+
+                <TextView
+                    android:id="@+id/txtMaps"
+                    style="@style/txtInterregular10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2pxh"
+                    android:layout_marginEnd="@dimen/_2pxh"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="@string/lbl_maps"
+                    tools:text="@string/lbl_maps" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearColumnProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2pxv"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageProfileImage"
+                    android:layout_width="@dimen/_32pxh"
+                    android:layout_height="@dimen/_32pxh"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_icons8_user_100"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/img_icons8_user_100" />
+
+                <TextView
+                    android:id="@+id/txtProfile"
+                    style="@style/txtInterregular10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2pxh"
+                    android:layout_marginEnd="@dimen/_2pxh"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="@string/lbl_profile"
+                    tools:text="@string/lbl_profile" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
