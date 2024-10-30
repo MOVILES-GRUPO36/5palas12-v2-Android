@@ -1,17 +1,12 @@
 package com.papigelvez.a5palas12.map
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -20,11 +15,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.firestore
 import com.papigelvez.a5palas12.R
 import com.papigelvez.a5palas12.databinding.ActivityMapBinding
+import com.papigelvez.a5palas12.entities.RestaurantEntity
 import com.papigelvez.a5palas12.home.HomeActivity
 import com.papigelvez.a5palas12.profile.ProfileActivity
 import com.papigelvez.a5palas12.search.SearchActivity
@@ -32,97 +25,80 @@ import com.papigelvez.a5palas12.search.SearchActivity
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivityMapBinding
-    private lateinit var currentLocation: Location
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private val viewModel: MapViewModel by viewModels()
     private val permissionCode = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-        getCurrentLocationUser()
+        //observar el ViewModel
+        observeViewModel()
 
+        //obtener ubicacion actual
+        viewModel.getCurrentLocationUser(this)
+
+        //cargar el mapa
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
+        //botones
         initUI()
-
     }
 
-    //obtener ubicacion actual y mostrar toast en el mapa con las coordenadas
-    private fun getCurrentLocationUser() {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-            ) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION), permissionCode)
-            return
+    private fun observeViewModel() {
+        //observar ubicacion actual
+        viewModel.currentLocation.observe(this) { location ->
+            updateCurrentLocationMarker(location)
         }
-        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                currentLocation = location
-                Toast.makeText(applicationContext, "${currentLocation.latitude}, ${currentLocation.longitude}", Toast.LENGTH_LONG).show()
 
-                val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
-                mapFragment.getMapAsync(this)
+        //observar data de restaurantes
+        viewModel.restaurantList.observe(this) { restaurants ->
+            updateRestaurantMarkers(restaurants)
+        }
+
+        //observar toasts
+        viewModel.toastMessage.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    //pinear en el mapa la ubicacion actual si el mapa esta inicializado
+    private fun updateCurrentLocationMarker(location: Location) {
+        if (::mMap.isInitialized) {
+            val latLng = LatLng(location.latitude, location.longitude)
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+            mMap.addMarker(MarkerOptions().position(latLng).title("Current Location"))
+        }
+    }
+
+    //pinear en el mapa los restaurantes obtenidos
+    private fun updateRestaurantMarkers(restaurants: List<RestaurantEntity>) {
+        if (::mMap.isInitialized) {
+            for (restaurant in restaurants) {
+                val location = LatLng(restaurant.latitude, restaurant.longitude)
+                mMap.addMarker(MarkerOptions().position(location).title(restaurant.name))
             }
         }
+    }
+
+    //una vez el mapa este listo, obtener los restaurantes para pinearlos
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        viewModel.fetchAllRestaurants()
     }
 
     //solicitar permiso para utilizar ubicacion
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            permissionCode -> if (grantResults.isNotEmpty() && grantResults[0]==
-                PackageManager.PERMISSION_GRANTED) {
-                getCurrentLocationUser()
-            }
+        if (requestCode == permissionCode && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            viewModel.getCurrentLocationUser(this)
         }
-    }
-
-    //poner los pinpoints de ubicacion actual y restaurantes
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        val latLng = LatLng(currentLocation.latitude, currentLocation.longitude)
-        var currentLocationMarker = MarkerOptions().position(latLng).title("Current Location")
-
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 7f))
-        mMap.addMarker(currentLocationMarker)
-
-        fetchAllRestaurants()
-
-    }
-
-    //obtener los restaurantes desde firestore y pinear en el mapa
-    private fun fetchAllRestaurants() {
-        val db = Firebase.firestore
-        val restaurantes = db.collection("restaurants")
-
-        restaurantes.get()
-            .addOnSuccessListener { documents ->
-                Log.d(TAG, "Successfully fetched ${documents.size()} documents")
-                for (document in documents) {
-                    val lat = document.getDouble("latitude")
-                    val lng = document.getDouble("longitude")
-                    val name = document.getString("name")
-
-                    if (lat != null && lng != null && name != null) {
-                        val location = LatLng(lat, lng)
-                        mMap.addMarker(MarkerOptions().position(location).title(name))
-                    }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting restaurant documents: ", exception)
-                Toast.makeText(this, "Failed to fetch restaurants: ${exception.message}", Toast.LENGTH_LONG).show()
-            }
     }
 
     private fun initUI() {
