@@ -87,4 +87,9 @@ dependencies {
 
     //maps
     implementation(libs.google.maps)
+
+    //analytics
+    // Add the dependency for the Analytics library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }

@@ -52,6 +52,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
+    //obtener ubicacion actual y mostrar toast en el mapa con las coordenadas
     private fun getCurrentLocationUser() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -59,24 +60,18 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION), permissionCode)
             return
         }
-        val getLocation = fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-            location ->
-
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
                 currentLocation = location
-                Toast.makeText(applicationContext, currentLocation.latitude.toString() + "" +
-                currentLocation.longitude.toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "${currentLocation.latitude}, ${currentLocation.longitude}", Toast.LENGTH_LONG).show()
 
-
-                val mapFragment = supportFragmentManager.findFragmentById(
-                    R.id.map_fragment) as SupportMapFragment
+                val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
                 mapFragment.getMapAsync(this)
-
-
             }
         }
     }
 
+    //solicitar permiso para utilizar ubicacion
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -91,53 +86,42 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    //poner los pinpoints de ubicacion actual y restaurantes
     override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
 
         val latLng = LatLng(currentLocation.latitude, currentLocation.longitude)
-        var markerOptions = MarkerOptions().position(latLng).title("Current Location")
+        var currentLocationMarker = MarkerOptions().position(latLng).title("Current Location")
 
-        googleMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-        googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 7f))
-        googleMap?.addMarker(markerOptions)
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 7f))
+        mMap.addMarker(currentLocationMarker)
 
-        fetchRestaurantLocation { document ->
-            if (document != null) {
-                // Process the document
-                val lat = document.getDouble("lat")
-                val lng = document.getDouble("lng")
-                // Handle the location or mark it on the map
-                if (lat != null && lng != null) {
-                    val location = LatLng(lat, lng)
-                    markerOptions = MarkerOptions().position(latLng)
-                    googleMap.addMarker(MarkerOptions()
-                        .position(location)
-                        .title(document.getString("name")))
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
-                }
-
-            }
-        }
+        fetchAllRestaurants()
 
     }
 
-    private fun fetchRestaurantLocation(callback: (DocumentSnapshot?) -> Unit) {
+    //obtener los restaurantes desde firestore y pinear en el mapa
+    private fun fetchAllRestaurants() {
         val db = Firebase.firestore
-        val lugares = db.collection("lugares")
+        val restaurantes = db.collection("restaurants")
 
-        val docRef = lugares.document("restLaCand1")
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                    callback(document) // Return the document via callback
-                } else {
-                    Log.d(TAG, "No such document")
-                    callback(null) // Document does not exist
+        restaurantes.get()
+            .addOnSuccessListener { documents ->
+                Log.d(TAG, "Successfully fetched ${documents.size()} documents")
+                for (document in documents) {
+                    val lat = document.getDouble("latitude")
+                    val lng = document.getDouble("longitude")
+                    val name = document.getString("name")
+
+                    if (lat != null && lng != null && name != null) {
+                        val location = LatLng(lat, lng)
+                        mMap.addMarker(MarkerOptions().position(location).title(name))
+                    }
                 }
             }
             .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
-                callback(null) // Return null on failure
+                Log.d(TAG, "Error getting restaurant documents: ", exception)
+                Toast.makeText(this, "Failed to fetch restaurants: ${exception.message}", Toast.LENGTH_LONG).show()
             }
     }
 
