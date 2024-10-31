@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <ImageView android:id="@+id/restaurantPhoto"
+            android:layout_height="@dimen/_102pxh"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/img_image"/>
+
+        <TextView
+            android:id="@+id/restaurantName"
+            style="@style/txtInterbold24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8pxh"
+            android:layout_marginTop="@dimen/_6pxv"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{viewhierarchyRowModel.txtSushiText}"
+            android:layout_below="@+id/restaurantPhoto"
+            tools:text="@string/lbl_yamamoto_sushi" />
+
+        <TextView
+            android:id="@+id/txtFoodText"
+            style="@style/txtInterregular16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8pxh"
+            android:layout_marginTop="-95dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            tools:text="@string/msg_sushi_ramen" />
+        <TextView android:id="@+id/restaurantRating"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6pxv"
+            android:layout_marginStart="@dimen/_8pxh"
+            android:layout_marginTop="@dimen/_7pxv"
+            android:layout_width="wrap_content"
+            android:scaleType="fitXY"
+            android:layout_below="@+id/restaurantName"
+            tools:ignore="ContentDescription"
+            tools:text="Calificacion de 3"
+            style="@style/txtInterregular16"/>
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
