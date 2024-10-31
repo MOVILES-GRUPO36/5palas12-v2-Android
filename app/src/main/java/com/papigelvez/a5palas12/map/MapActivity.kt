@@ -55,6 +55,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         //observar ubicacion actual
         viewModel.currentLocation.observe(this) { location ->
             updateCurrentLocationMarker(location)
+            viewModel.fetchAllRestaurants()
         }
 
         //observar data de restaurantes
@@ -90,7 +91,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     //una vez el mapa este listo, obtener los restaurantes para pinearlos
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        viewModel.fetchAllRestaurants()
+        //viewModel.fetchAllRestaurants()
     }
 
     //solicitar permiso para utilizar ubicacion

@@ -33,7 +33,7 @@ class MapViewModel : ViewModel() {
         fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
                 _currentLocation.value = location
-                _toastMessage.value = "Tus coordenadas: ${location.latitude}, ${location.longitude}"
+                _toastMessage.value = "Your coords: ${location.latitude}, ${location.longitude}"
             } else {
                 _toastMessage.value = "Location not found"
             }
@@ -41,11 +41,26 @@ class MapViewModel : ViewModel() {
     }
 
     //obtener restaurantes del modelo
+    /*
     fun fetchAllRestaurants() {
         mapModel.fetchRestaurants(
             onSuccess = { restaurants -> _restaurantList.value = restaurants },
             onFailure = { error -> _toastMessage.value = "Failed to fetch restaurants: $error" }
         )
     }
+    */
+
+    fun fetchAllRestaurants() {
+        currentLocation.value?.let { userLocation ->
+            mapModel.fetchNearbyRestaurants(
+                userLocation,
+                onSuccess = { restaurants -> _restaurantList.value = restaurants },
+                onFailure = { error -> _toastMessage.value = "Failed to fetch restaurants: $error" }
+            )
+        } ?: run {
+            _toastMessage.value = "User location not found"
+        }
+    }
+
 }
 
