@@ -101,6 +101,7 @@ Thank you for helping us on our mission to reduce food waste and enjoy amazing s
     <string name="lbl_adresses">Adresses</string>
     <string name="msg_pick_up_time_10_00">Pick-up time: 10:00 p.m. - 10:30 p.m.</string>
     <string name="msg_we_curated_the_restaurants">We curated the restaurants selection based on your location and based on you, we hope you enjoy our picks!</string>
+    <string name="msg_nearby_restaurants">This map displays all restaurants within 10km of your current location</string>
     <string name="lbl_complete_name">Complete name</string>
     <string name="msg_user_name_usere">User Name
 useremail@gmail.com

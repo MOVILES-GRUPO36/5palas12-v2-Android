@@ -13,7 +13,7 @@ class HomeRestaurantAdapter(private val restaurantList: MutableList<RestaurantEn
 
     class RestaurantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.restaurantName)
-        //val addressTextView: TextView = itemView.findViewById(R.id.restaurantAddress)
+        val categoryTextView: TextView = itemView.findViewById(R.id.restaurantCategories)
         val ratingTextView: TextView = itemView.findViewById(R.id.restaurantRating)
     }
 
@@ -27,7 +27,11 @@ class HomeRestaurantAdapter(private val restaurantList: MutableList<RestaurantEn
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val restaurant = restaurantList[position]
         holder.nameTextView.text = restaurant.name
-        //holder.addressTextView.text = restaurant.address
+        var categories = restaurant.categories.toString()
+        categories = categories.replace("[", "")
+        categories = categories.replace("]", "")
+        categories = categories.replace(",", " -")
+        holder.categoryTextView.text = categories
         holder.ratingTextView.text = restaurant.rating.toString()
     }
 
