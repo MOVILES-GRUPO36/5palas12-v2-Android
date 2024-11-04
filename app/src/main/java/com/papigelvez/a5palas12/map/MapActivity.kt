@@ -15,6 +15,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.analytics
 import com.papigelvez.a5palas12.R
 import com.papigelvez.a5palas12.databinding.ActivityMapBinding
 import com.papigelvez.a5palas12.entities.RestaurantEntity
@@ -24,6 +27,7 @@ import com.papigelvez.a5palas12.search.SearchActivity
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var binding: ActivityMapBinding
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -34,6 +38,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        firebaseAnalytics = Firebase.analytics
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -110,10 +116,18 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.linearColumnHome.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
+
+            val params = Bundle()
+            params.putString("tapped_feature", "Home Feature")
+            firebaseAnalytics.logEvent("features", params)
         }
         binding.linearColumnSearch.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
+
+            val params = Bundle()
+            params.putString("tapped_feature", "Search Feature")
+            firebaseAnalytics.logEvent("features", params)
         }
         binding.linearColumnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)

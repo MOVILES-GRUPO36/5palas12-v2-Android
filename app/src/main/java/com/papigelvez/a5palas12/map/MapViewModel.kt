@@ -33,7 +33,6 @@ class MapViewModel : ViewModel() {
         fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
                 _currentLocation.value = location
-                _toastMessage.value = "Your coords: ${location.latitude}, ${location.longitude}"
             } else {
                 _toastMessage.value = "Location not found"
             }

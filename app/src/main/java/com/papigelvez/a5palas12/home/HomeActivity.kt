@@ -61,10 +61,15 @@ class HomeActivity : AppCompatActivity() {
         binding.linearColumnSearch.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
+
+            val params = Bundle()
+            params.putString("tapped_feature", "Search Feature")
+            firebaseAnalytics.logEvent("features", params)
         }
         binding.linearColumnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+
         }
     }
 
