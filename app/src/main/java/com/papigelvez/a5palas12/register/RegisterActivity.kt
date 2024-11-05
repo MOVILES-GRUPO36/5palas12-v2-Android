@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.auth
 import com.papigelvez.a5palas12.R
 import com.papigelvez.a5palas12.databinding.ActivityRegisterBinding
@@ -54,8 +56,13 @@ class RegisterActivity : AppCompatActivity() {
                                 val intent = Intent(this, LoginActivity::class.java)
                                 startActivity(intent)
                             } else {
-                                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)
-                                    .show()
+                                val exception = it.exception
+                                val errorMessage = when (exception) {
+                                    is FirebaseAuthUserCollisionException -> "This email is already registered."
+                                    is FirebaseNetworkException -> "No internet connection. Please check your network."
+                                    else -> exception?.localizedMessage ?: "Registration failed. Please try again."
+                                }
+                                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                             }
                         }
                 } else {

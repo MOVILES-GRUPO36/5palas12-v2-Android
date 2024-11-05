@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var binding: ActivityHomeBinding
     private lateinit var restaurantAdapter: HomeRestaurantAdapter
-    private val viewModel: HomeViewModel by viewModels { HomeViewModelFactory(HomeModel()) }
+    private val viewModel: HomeViewModel by viewModels { HomeViewModelFactory(HomeModel(applicationContext), this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +44,23 @@ class HomeActivity : AppCompatActivity() {
 
         initUI()
     }
+
+    //binding del adapter
+    private fun setupRecyclerView() {
+        restaurantAdapter = HomeRestaurantAdapter(mutableListOf())
+        binding.rvRestaurants.apply {
+            layoutManager = LinearLayoutManager(this@HomeActivity)
+            adapter = restaurantAdapter
+        }
+    }
+
+    //observar los restaurantes fetcheados
+    private fun observeViewModel() {
+        viewModel.restaurantList.observe(this) { restaurants ->
+            restaurantAdapter.updateRestaurants(restaurants)
+        }
+    }
+
 
     private fun initUI() {
         initListeners()
@@ -70,22 +87,6 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
 
-        }
-    }
-
-    //binding del adapter
-    private fun setupRecyclerView() {
-        restaurantAdapter = HomeRestaurantAdapter(mutableListOf())
-        binding.rvRestaurants.apply {
-            layoutManager = LinearLayoutManager(this@HomeActivity)
-            adapter = restaurantAdapter
-        }
-    }
-
-    //observar los restaurantes fetcheados
-    private fun observeViewModel() {
-        viewModel.restaurantList.observe(this) { restaurants ->
-            restaurantAdapter.updateRestaurants(restaurants)
         }
     }
 

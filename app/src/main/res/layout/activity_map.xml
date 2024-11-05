@@ -44,6 +44,26 @@
         tools:text="@string/msg_nearby_restaurants"
         style="@style/groupStylegray_300"/>
 
+    <Button
+        android:id="@+id/btnRetry"
+        style="@style/btnSolidRounded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:paddingStart="@dimen/_30pxh"
+        android:paddingTop="@dimen/_13pxv"
+        android:paddingEnd="@dimen/_30pxh"
+        android:paddingBottom="@dimen/_13pxv"
+        android:layout_marginTop="@dimen/_30pxv"
+        android:visibility="invisible"
+        android:singleLine="true"
+        android:text="@string/lbl_retry"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/msg_nearby_restaurants" />
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"

@@ -7,7 +7,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.papigelvez.a5palas12.R
 import com.papigelvez.a5palas12.databinding.ActivityLoginBinding
 import com.papigelvez.a5palas12.home.HomeActivity
@@ -55,8 +57,13 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT)
-                            .show()
+                        val exception = it.exception
+                        val errorMessage = when (exception) {
+                            is FirebaseAuthUserCollisionException -> "This email is already registered."
+                            is FirebaseNetworkException -> "No internet connection. Please check your network."
+                            else -> exception?.localizedMessage ?: "Authentication failed. Please try again."
+                        }
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
 

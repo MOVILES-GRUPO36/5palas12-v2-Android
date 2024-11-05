@@ -1,12 +1,17 @@
 package com.papigelvez.a5palas12.map
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,6 +29,9 @@ import com.papigelvez.a5palas12.entities.RestaurantEntity
 import com.papigelvez.a5palas12.home.HomeActivity
 import com.papigelvez.a5palas12.profile.ProfileActivity
 import com.papigelvez.a5palas12.search.SearchActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -55,6 +63,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         //botones
         initUI()
+
+        //revisar conectividad
+        startConnectivityChecker()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //volver a obtener la ubicacion del usuario
+        viewModel.getCurrentLocationUser(this)
     }
 
     private fun observeViewModel() {
@@ -78,9 +95,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     //pinear en el mapa la ubicacion actual si el mapa esta inicializado
     private fun updateCurrentLocationMarker(location: Location) {
         if (::mMap.isInitialized) {
+
+            //en caso de que la ubicacion del usuario cambie
+            mMap.clear()
+
             val latLng = LatLng(location.latitude, location.longitude)
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
             mMap.addMarker(MarkerOptions().position(latLng).title("Current Location"))
+
+            viewModel.fetchAllRestaurants()
         }
     }
 
@@ -106,6 +129,34 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         if (requestCode == permissionCode && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             viewModel.getCurrentLocationUser(this)
         }
+    }
+
+    private fun startConnectivityChecker() {
+        //lanzar la corrutina
+        lifecycleScope.launch {
+            while (true) {
+                if (!isConnected()) {
+                    //mostrar el mensaje de failed to load y el boton de retry
+                    binding.btnRetry.visibility = View.VISIBLE
+                    Toast.makeText(this@MapActivity, "Failed to load. Check your connection.", Toast.LENGTH_LONG).show()
+                } else {
+                    //desaparecer el boton de retry
+                    binding.btnRetry.visibility = View.GONE
+                }
+                delay(5000) // cada 5 segundos
+            }
+        }
+
+        binding.btnRetry.setOnClickListener {
+            viewModel.fetchAllRestaurants()
+        }
+    }
+
+    private fun isConnected(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val capabilities = connectivityManager.getNetworkCapabilities(network)
+        return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 
     private fun initUI() {
