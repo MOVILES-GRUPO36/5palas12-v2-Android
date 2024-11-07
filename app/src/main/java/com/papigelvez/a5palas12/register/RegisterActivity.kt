@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
                             } else {
                                 val exception = it.exception
                                 val errorMessage = when (exception) {
-                                    is FirebaseAuthUserCollisionException -> "This email is already registered."
+                                    is FirebaseAuthUserCollisionException -> "This email is already registered. Try another one."
                                     is FirebaseNetworkException -> "No internet connection. Please check your network."
                                     else -> exception?.localizedMessage ?: "Registration failed. Please try again."
                                 }

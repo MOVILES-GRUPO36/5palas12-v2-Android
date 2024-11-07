@@ -59,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         val exception = it.exception
                         val errorMessage = when (exception) {
-                            is FirebaseAuthUserCollisionException -> "This email is already registered."
                             is FirebaseNetworkException -> "No internet connection. Please check your network."
                             else -> exception?.localizedMessage ?: "Authentication failed. Please try again."
                         }
