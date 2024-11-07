@@ -3,8 +3,10 @@ package com.papigelvez.a5palas12.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.papigelvez.a5palas12.R
 import com.papigelvez.a5palas12.entities.RestaurantEntity
 
@@ -15,6 +17,7 @@ class HomeRestaurantAdapter(private val restaurantList: MutableList<RestaurantEn
         val nameTextView: TextView = itemView.findViewById(R.id.restaurantName)
         val categoryTextView: TextView = itemView.findViewById(R.id.restaurantCategories)
         val ratingTextView: TextView = itemView.findViewById(R.id.restaurantRating)
+        val restaurantImageView: ImageView = itemView.findViewById(R.id.restaurantPhoto)
     }
 
     //referenciar el layout de cada item
@@ -33,6 +36,9 @@ class HomeRestaurantAdapter(private val restaurantList: MutableList<RestaurantEn
         categories = categories.replace(",", " -")
         holder.categoryTextView.text = categories
         holder.ratingTextView.text = restaurant.rating.toString()
+
+        //poner el url en la imageview de cada item
+        Glide.with(holder.itemView.context).load(restaurant.photo).centerCrop().into(holder.restaurantImageView)
     }
 
     override fun getItemCount(): Int {
