@@ -99,7 +99,8 @@ Thank you for helping us on our mission to reduce food waste and enjoy amazing s
     <string name="lbl_burger">Burger</string>
     <string name="msg_chapinero_bogot">Chapinero, Bogot? D.C., Colombia </string>
     <string name="msg_price_cop_40_000">Price: COP $40.000</string>
-    <string name="lbl_adresses">Adresses</string>
+    <string name="lbl_business_center">Business Center</string>
+    <string name="lbl_my_orders">My Orders</string>
     <string name="msg_pick_up_time_10_00">Pick-up time: 10:00 p.m. - 10:30 p.m.</string>
     <string name="msg_we_curated_the_restaurants">We curated the restaurants selection based on your location and based on you, we hope you enjoy our picks!</string>
     <string name="msg_nearby_restaurants">This map displays all restaurants within 10km of your current location</string>
