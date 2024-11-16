@@ -100,7 +100,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap.clear()
 
             val latLng = LatLng(location.latitude, location.longitude)
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
             mMap.addMarker(MarkerOptions().position(latLng).title("Current Location"))
 
             viewModel.fetchAllRestaurants()
@@ -138,7 +138,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (!isConnected()) {
                     //mostrar el mensaje de failed to load y el boton de retry
                     binding.btnRetry.visibility = View.VISIBLE
-                    Toast.makeText(this@MapActivity, "Failed to load. Check your connection.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MapActivity, "Failed to load map. Check your connection.", Toast.LENGTH_LONG).show()
                 } else {
                     //desaparecer el boton de retry
                     binding.btnRetry.visibility = View.GONE

@@ -66,7 +66,7 @@
         <EditText
             android:background="@drawable/rectangle_border_blue_gray_400_radius_8"
             android:ellipsize="end" android:hint="Telephone"
-            android:id="@+id/etTelephone" android:inputType="text"
+            android:id="@+id/etTelephone" android:inputType="phone"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12pxv"
             android:layout_width="match_parent"
@@ -79,7 +79,8 @@
         <EditText
             android:background="@drawable/rectangle_border_blue_gray_400_radius_8"
             android:ellipsize="end" android:hint="@string/lbl_e_mail"
-            android:id="@+id/etEmail" android:inputType="text"
+            android:id="@+id/etEmail"
+            android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12pxv"
             android:layout_width="match_parent"
