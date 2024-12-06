@@ -8,6 +8,116 @@
     tools:context=".search.SearchActivity"
     android:fitsSystemWindows="true">
 
+    <TextView
+        android:id="@+id/txtSearchRestaurants"
+        style="@style/txtInterbold30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/lbl_search_restaurants"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/_15pxh"
+        android:layout_marginTop="@dimen/_15pxv"/>
+
+    <SearchView
+        android:id="@+id/svBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtSearchRestaurants"
+        android:queryHint="Search by restaurant name..."
+        android:iconifiedByDefault="false"
+        android:layout_marginTop="15dp"
+        />
+
+    <Button
+        android:id="@+id/btnColombian"
+        android:text="@string/lbl_colombian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/svBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnSushi"
+        style="@style/groupStylegray_600cornerRadius"
+        android:layout_marginTop="15dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btnSushi"
+        android:text="@string/lbl_sushi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/svBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnColombian"
+        style="@style/groupStylegray_600cornerRadius"
+        android:layout_marginTop="15dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btnGourmet"
+        android:text="@string/lbl_gourmet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnColombian"
+        app:layout_constraintEnd_toStartOf="@id/btnInternational"
+        style="@style/groupStylegray_600cornerRadius"
+        android:layout_marginTop="15dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btnInternational"
+        android:text="@string/lbl_international"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnGourmet"
+        app:layout_constraintTop_toBottomOf="@+id/btnSushi"
+        style="@style/groupStylegray_600cornerRadius"
+        android:layout_marginTop="15dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btnBuffet"
+        android:text="@string/lbl_buffet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGourmet"
+        app:layout_constraintEnd_toStartOf="@id/btnVegan"
+        style="@style/groupStylegray_600cornerRadius"
+        android:layout_marginTop="15dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btnVegan"
+        android:text="@string/lbl_vegan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnInternational"
+        app:layout_constraintStart_toEndOf="@+id/btnBuffet"
+        style="@style/groupStylegray_600cornerRadius"
+        android:layout_marginTop="15dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearchedRestaurants"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnBuffet"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"/>
+
     <FrameLayout
         android:id="@+id/frameBottombar"
         style="@style/groupStylegray_800cornerRadius"

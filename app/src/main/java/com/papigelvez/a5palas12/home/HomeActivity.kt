@@ -77,12 +77,14 @@ class HomeActivity : AppCompatActivity() {
         }
         binding.linearColumnSearch.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
+            intent.putParcelableArrayListExtra("restaurants", ArrayList(viewModel.restaurantList.value ?: emptyList()))
             startActivity(intent)
 
             val params = Bundle()
             params.putString("tapped_feature", "Search Feature")
             firebaseAnalytics.logEvent("features", params)
         }
+        //agregar granularidad temporal
         binding.linearColumnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
