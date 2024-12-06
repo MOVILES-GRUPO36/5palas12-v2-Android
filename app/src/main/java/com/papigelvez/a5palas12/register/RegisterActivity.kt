@@ -2,6 +2,7 @@ package com.papigelvez.a5palas12.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
+        binding.etName.filters = arrayOf(InputFilter.LengthFilter(30))
+        binding.etTelephone.filters = arrayOf(InputFilter.LengthFilter(30))
+        binding.etEmail.filters = arrayOf(InputFilter.LengthFilter(30))
+        binding.etPassword.filters = arrayOf(InputFilter.LengthFilter(30))
+        binding.etConfirmPassword.filters = arrayOf(InputFilter.LengthFilter(30))
         initListeners()
     }
 
@@ -44,7 +50,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnRegister.setOnClickListener {
             val name = binding.etName.text.toString()
             val telephone = binding.etTelephone.text.toString()
-            val email = binding.etMail.text.toString()
+            val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
             val confirm = binding.etConfirmPassword.text.toString()
 

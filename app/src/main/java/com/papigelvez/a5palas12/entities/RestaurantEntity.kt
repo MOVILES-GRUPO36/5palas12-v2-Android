@@ -1,5 +1,9 @@
 package com.papigelvez.a5palas12.entities
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class RestaurantEntity (
     val name: String = "",
     val address: String = "",
@@ -9,4 +13,4 @@ data class RestaurantEntity (
     val rating: Double = 0.0,
     val photo: String = "",
     val categories: List<String> = emptyList()
-)
+) : Parcelable

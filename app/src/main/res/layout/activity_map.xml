@@ -24,7 +24,6 @@
             style="@style/txtFascinateInlineregular30"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_28pxv"
             android:ellipsize="end"
             android:gravity="center_horizontal"
             android:singleLine="true"

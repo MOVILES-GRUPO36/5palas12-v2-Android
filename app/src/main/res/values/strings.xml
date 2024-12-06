@@ -31,6 +31,7 @@ Wow, you\u2019re awesome!!</string>
     <string name="msg_calle_93b_11a">Calle 93b #11a - 70</string>
     <string name="lbl_log_in">Log in</string>
     <string name="lbl_payment_methods">Payment Methods </string>
+    <string name="lbl_welcome_to_business_center">Welcome to \nBusiness Center</string>
     <string name="lbl_e_mail">E-mail</string>
     <string name="msg_ara_chic_carrera">Ara (Chic? Carrera 15)</string>
     <string name="lbl_log_out">Log out</string>
@@ -60,6 +61,7 @@ Thank you for helping us on our mission to reduce food waste and enjoy amazing s
     <string name="lbl_yamamoto">Yamamoto</string>
     <string name="lbl">!</string>
     <string name="lbl_register">Register</string>
+    <string name="lbl_save_business">Save Business</string>
     <string name="lbl_repeat_password">Repeat password</string>
     <string name="lbl_card_1_5987">Card 1 - 5987</string>
     <string name="lbl_save">Save</string>
@@ -99,7 +101,8 @@ Thank you for helping us on our mission to reduce food waste and enjoy amazing s
     <string name="lbl_burger">Burger</string>
     <string name="msg_chapinero_bogot">Chapinero, Bogot? D.C., Colombia </string>
     <string name="msg_price_cop_40_000">Price: COP $40.000</string>
-    <string name="lbl_adresses">Adresses</string>
+    <string name="lbl_business_center">Business Center</string>
+    <string name="lbl_my_orders">My Orders</string>
     <string name="msg_pick_up_time_10_00">Pick-up time: 10:00 p.m. - 10:30 p.m.</string>
     <string name="msg_we_curated_the_restaurants">We curated the restaurants selection based on your location and based on you, we hope you enjoy our picks!</string>
     <string name="msg_nearby_restaurants">This map displays all restaurants within 10km of your current location</string>
@@ -108,6 +111,15 @@ Thank you for helping us on our mission to reduce food waste and enjoy amazing s
 useremail@gmail.com
 +57 315 448 9087</string>
     <string name="lbl_password">Password</string>
+    <string name="lbl_enter_business_name">Name</string>
+    <string name="lbl_enter_business_latitude">Latitude</string>
+    <string name="lbl_enter_business_longitude">Longitude</string>
+    <string name="lbl_enter_business_photo">Photo URL</string>
+    <string name="lbl_enter_business_categories">Categories (comma-separated)</string>
+    <string name="lbl_enter_business_description">Description</string>
+    <string name="lbl_enter_business_rating">Rating</string>
+    <string name="lbl_enter_business_address">Address</string>
+
     <string name="msg_don_t_you_have_an2">Don\u2019t you have an account? </string>
     <string name="lbl_for_pick_up_at">For pick-up at </string>
     <string name="lbl_315_448_9087">315 448 9087 </string>
@@ -128,4 +140,12 @@ At </string>
     <string name="msg_telephone_number">Telephone number</string>
     <!--TODO ENTER YOUR_API_KEY-->
     <string name="str_maps_api_key">MAPS_API_KEY</string>
+    <string name="msg_business_details">Business Details</string>
+    <string name="lbl_create_a_business">Create a Business</string>
+    <string name="lbl_search_restaurants">Search Restaurants</string>
+    <string name="lbl_colombian">Colombian</string>
+    <string name="lbl_gourmet">Gourmet</string>
+    <string name="lbl_international">International</string>
+    <string name="lbl_buffet">Buffet</string>
+    <string name="lbl_vegan">Vegan</string>
 </resources>

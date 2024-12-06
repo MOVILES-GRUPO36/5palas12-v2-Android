@@ -18,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.Firebase
@@ -100,8 +101,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap.clear()
 
             val latLng = LatLng(location.latitude, location.longitude)
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
-            mMap.addMarker(MarkerOptions().position(latLng).title("Current Location"))
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
+            mMap.addMarker(MarkerOptions().position(latLng).title("Current Location").icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
 
             viewModel.fetchAllRestaurants()
         }
@@ -138,7 +140,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (!isConnected()) {
                     //mostrar el mensaje de failed to load y el boton de retry
                     binding.btnRetry.visibility = View.VISIBLE
-                    Toast.makeText(this@MapActivity, "Failed to load. Check your connection.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MapActivity, "Failed to load map. Check your connection.", Toast.LENGTH_LONG).show()
                 } else {
                     //desaparecer el boton de retry
                     binding.btnRetry.visibility = View.GONE

@@ -1,7 +1,9 @@
 package com.papigelvez.a5palas12.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +22,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
+    private val sharedPreferences by lazy { getSharedPreferences("LoginCreds", Context.MODE_PRIVATE) }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,12 +35,27 @@ class LoginActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        checkStoredCredentials()
+
         initUI()
 
         enableEdgeToEdge()
     }
 
+    //check if credentials are in SharedPreferences, if they are, redirect to HomeActivity
+    private fun checkStoredCredentials() {
+        val savedMail = sharedPreferences.getString("email", null)
+
+        if (!savedMail.isNullOrEmpty()) {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
     private fun initUI() {
+        binding.etEmail.filters = arrayOf(InputFilter.LengthFilter(30))
+        binding.etPassword.filters = arrayOf(InputFilter.LengthFilter(30))
         initListeners()
     }
 
@@ -46,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val email = binding.etMail.text.toString()
+            val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
@@ -54,8 +74,10 @@ class LoginActivity : AppCompatActivity() {
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
 
                     if (it.isSuccessful) {
+                        saveCredentials(email)
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
+                        finish()
                     } else {
                         val exception = it.exception
                         val errorMessage = when (exception) {
@@ -70,5 +92,11 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Empty fields are not allowed", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun saveCredentials(email: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString("email", email)
+        editor.apply()
     }
 }
