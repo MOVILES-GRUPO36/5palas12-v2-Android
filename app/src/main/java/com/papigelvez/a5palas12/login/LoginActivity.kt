@@ -45,9 +45,8 @@ class LoginActivity : AppCompatActivity() {
     //check if credentials are in SharedPreferences, if they are, redirect to HomeActivity
     private fun checkStoredCredentials() {
         val savedMail = sharedPreferences.getString("email", null)
-        val savedPassword = sharedPreferences.getString("password", null)
 
-        if (!savedMail.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {
+        if (!savedMail.isNullOrEmpty()) {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
@@ -75,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
 
                     if (it.isSuccessful) {
-                        saveCredentials(email, password)
+                        saveCredentials(email)
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -95,10 +94,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveCredentials(email: String, password: String) {
+    private fun saveCredentials(email: String) {
         val editor = sharedPreferences.edit()
         editor.putString("email", email)
-        editor.putString("password", password)
         editor.apply()
     }
 }

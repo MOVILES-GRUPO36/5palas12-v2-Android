@@ -18,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.Firebase
@@ -101,7 +102,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
             val latLng = LatLng(location.latitude, location.longitude)
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
-            mMap.addMarker(MarkerOptions().position(latLng).title("Current Location"))
+            mMap.addMarker(MarkerOptions().position(latLng).title("Current Location").icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
 
             viewModel.fetchAllRestaurants()
         }
