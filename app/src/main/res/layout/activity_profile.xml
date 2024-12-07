@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_12pxv"
-                android:text="@string/msg_user_name_usere" />
+                tools:text="@string/msg_user_name_usere" />
 
             <View
                 android:id="@+id/lineLinetwoOne"
@@ -123,13 +123,15 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearRowlocationone"
+                android:id="@+id/linearRowBusinessCenter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_45pxv"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true">
 
                 <TextView
                     android:id="@+id/txtBusinessCenter"
@@ -261,6 +263,95 @@
 
     </ScrollView>
 
+
+    <LinearLayout
+        android:id="@+id/businessCenterMenu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameBottombar"
+        app:layout_constraintTop_toBottomOf="@+id/linearColumn5palastwe"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <LinearLayout
+            android:id="@+id/backLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginTop="@dimen/_15pxv">
+
+            <ImageView
+                android:id="@+id/imageLeftArrow"
+                android:layout_width="@dimen/_22pxh"
+                android:layout_height="@dimen/_22pxh"
+                android:layout_gravity="top"
+                android:layout_marginStart="@dimen/_31pxh"
+                android:scaleType="fitXY"
+                android:rotation="180"
+                android:src="@drawable/img_right_arrow_1"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/img_right_arrow_1" />
+
+            <TextView
+                android:id="@+id/txtBack"
+                style="@style/txtFamiljenGroteskbold16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15pxh"
+                android:layout_marginTop="@dimen/_2pxv"
+                android:ellipsize="end"
+                android:gravity="bottom"
+                android:singleLine="true"
+                android:text="@string/lbl_back" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_welcome_to_business_center"
+            style="@style/txtFascinateInlineregular30"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:lines="2"
+            android:singleLine="false"
+            android:minLines="2"
+            android:layout_marginTop="@dimen/_15pxv"
+            />
+
+        <TextView
+            android:id="@+id/tvCreateBusiness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:text="@string/lbl_create_a_business"
+            android:paddingStart="@dimen/_30pxv"
+            android:layout_marginTop="@dimen/_30pxv"
+            android:textSize="@dimen/_20pxh"
+            android:fontFamily="@font/fascinate_inline"
+            android:textFontWeight="900"
+            android:layout_marginStart="@dimen/_30pxv"
+            android:clickable="true"
+            android:visibility="gone"
+            />
+        <TextView
+            android:id="@+id/tvDeleteBusiness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:text="@string/lbl_delete_business"
+            android:paddingStart="@dimen/_30pxv"
+            android:layout_marginTop="@dimen/_30pxv"
+            android:textSize="@dimen/_20pxh"
+            android:fontFamily="@font/fascinate_inline"
+            android:textFontWeight="900"
+            android:layout_marginStart="@dimen/_30pxv"
+            android:clickable="true"
+            android:visibility="gone"
+            />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/frameBottombar"

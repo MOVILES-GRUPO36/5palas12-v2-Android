@@ -17,21 +17,24 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".business_center.CreateBusinessActivity"
+            android:exported="false" />
+        <activity
             android:name=".search.SearchActivity"
             android:exported="false"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".profile.ProfileActivity"
             android:exported="false"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".map.MapActivity"
             android:exported="false"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".home.HomeActivity"
             android:exported="false"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".register.RegisterActivity"
             android:exported="false" />
