@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -104,29 +106,38 @@ class CreateBusinessActivity : AppCompatActivity() {
             businessRating == null || businessRating !in 1.0..5.0 || businessAddress.isEmpty()
         ) {
             Toast.makeText(this, "Please fill all fields correctly.", Toast.LENGTH_SHORT).show()
-        } else {
-            val documentRef = firestore.collection("restaurants").document()
-            val id = documentRef.id
+            return
+        }
 
-            val restaurantData = hashMapOf(
-                "id" to id,
-                "name" to businessName,
-                "latitude" to businessLatitude,
-                "longitude" to businessLongitude,
-                "photo" to businessPhoto,
-                "categories" to businessCategories,
-                "description" to businessDescription,
-                "rating" to businessRating,
-                "address" to businessAddress
-            )
-            firestore.collection("restaurants")
-                .add(restaurantData)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Restaurant added successfully!", Toast.LENGTH_SHORT).show()
+        // Check network connectivity
+        if (!isConnected()) {
+            Toast.makeText(this, "No internet connection. Please try again later.", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-                    //agregar el nombre del restaurante como atributo del usuario
-                    val userEmail = sharedPreferences.getString("email", null)
+        val documentRef = firestore.collection("restaurants").document()
+        val id = documentRef.id
 
+        val restaurantData = hashMapOf(
+            "id" to id,
+            "name" to businessName,
+            "latitude" to businessLatitude,
+            "longitude" to businessLongitude,
+            "photo" to businessPhoto,
+            "categories" to businessCategories,
+            "description" to businessDescription,
+            "rating" to businessRating,
+            "address" to businessAddress
+        )
+
+        firestore.collection("restaurants")
+            .add(restaurantData)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Restaurant added successfully!", Toast.LENGTH_SHORT).show()
+
+                // Add the restaurant name to the user's document
+                val userEmail = sharedPreferences.getString("email", null)
+                if (userEmail != null) {
                     firestore.collection("users")
                         .whereEqualTo("email", userEmail)
                         .get()
@@ -137,7 +148,7 @@ class CreateBusinessActivity : AppCompatActivity() {
 
                                 userRef.update("restaurant", businessName)
                                     .addOnSuccessListener {
-                                        //agregar restaurante a sharedPreferences
+                                        // Save the restaurant name in SharedPreferences
                                         sharedPreferences.edit().putString("userRestaurant", businessName).apply()
                                     }
                                     .addOnFailureListener { e ->
@@ -148,16 +159,24 @@ class CreateBusinessActivity : AppCompatActivity() {
                         .addOnFailureListener { e ->
                             Toast.makeText(this, "Failed to find user: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
+                }
 
-                    //cerrar actividad y redirigir a ProfileActivity
-                    val intent = Intent(this, ProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Failed to add restaurant: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-        }
+                // Close activity and redirect to ProfileActivity
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to add restaurant: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    // Helper function to check connectivity
+    private fun isConnected(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val capabilities = connectivityManager.getNetworkCapabilities(network)
+        return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 
     //manejar el resultado de la solicitud de permisos
