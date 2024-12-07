@@ -31,6 +31,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class HomeActivity : AppCompatActivity() {
 
@@ -122,32 +123,37 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun fetchUserRestaurant() {
-        CoroutineScope(Dispatchers.Main).launch {
-            //obtener el email del usuario loggeado
+        CoroutineScope(Dispatchers.IO).launch {
+            // obtener el correo del usuario en sharedPreferences
             val email = sharedPreferences.getString("email", null)
             if (email != null) {
                 try {
-                    //buscar documento de usuario que tenga ese email, snapshot pueden ser varios pero solo hay 1 por usuario
+                    // obtener snapshot de firestore
                     val userSnapshot = firestore.collection("users")
                         .whereEqualTo("email", email)
                         .get()
                         .await()
 
-                    //si se encontro el documento
+                    // si se encuentra el documento, obtener valor de restaurante
                     if (!userSnapshot.isEmpty) {
                         val userDocument = userSnapshot.documents.first()
                         val restaurant = userDocument.getString("restaurant") ?: ""
 
-                        //guardar restaurante en sharedpreferences
+                        // guardar valor de restaurante en sharedPreferences
                         sharedPreferences.edit()
                             .putString("userRestaurant", restaurant)
                             .apply()
-
                     } else {
-                        Toast.makeText(this@HomeActivity, "No user found with this email.", Toast.LENGTH_SHORT).show()
+                        // mensajes Toast con el thread Main
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@HomeActivity, "No user found with this email.", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } catch (e: Exception) {
-                    Toast.makeText(this@HomeActivity, "Error fetching user data. Check your connection.", Toast.LENGTH_SHORT).show()
+                    // mensajes Toast con el thread Main
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@HomeActivity, "Error fetching user data. Check your connection.", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
