@@ -148,4 +148,5 @@ At </string>
     <string name="lbl_international">International</string>
     <string name="lbl_buffet">Buffet</string>
     <string name="lbl_vegan">Vegan</string>
+    <string name="lbl_delete_business">Delete Business</string>
 </resources>

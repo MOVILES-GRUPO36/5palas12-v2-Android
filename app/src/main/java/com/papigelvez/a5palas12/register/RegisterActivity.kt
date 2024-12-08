@@ -13,13 +13,19 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.papigelvez.a5palas12.R
+import java.text.SimpleDateFormat
 import com.papigelvez.a5palas12.databinding.ActivityRegisterBinding
 import com.papigelvez.a5palas12.login.LoginActivity
+import java.util.Date
+import java.util.Locale
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+
 
     override fun onCreate(savedInstanceState: Bundle?): Unit {
         super.onCreate(savedInstanceState)
@@ -28,6 +34,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = Firebase.auth
+        firestore = FirebaseFirestore.getInstance()
 
         initUI()
     }
@@ -59,8 +66,25 @@ class RegisterActivity : AppCompatActivity() {
                     firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                val intent = Intent(this, LoginActivity::class.java)
-                                startActivity(intent)
+                                val currentDate = SimpleDateFormat("dd 'de' MMMM 'de' yyyy, hh:mm:ssa z", Locale("es", "CO"))
+                                val createdAt = currentDate.format(Date())
+
+                                val userData = hashMapOf(
+                                    "name" to name,
+                                    "email" to email,
+                                    "createdAt" to createdAt
+                                )
+
+                                firestore.collection("users")
+                                    .add(userData)
+                                    .addOnSuccessListener {
+                                        val intent = Intent(this, LoginActivity::class.java)
+                                        startActivity(intent)
+                                        Toast.makeText(this, "User registered and data saved", Toast.LENGTH_SHORT).show()
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Toast.makeText(this, "Failed to save user data: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                                    }
                             } else {
                                 val exception = it.exception
                                 val errorMessage = when (exception) {

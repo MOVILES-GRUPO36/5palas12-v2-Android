@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".business_center.CreateBusinessActivity"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:id="@+id/linearColumn5palastwe"
+        style="@style/groupStylegray_700"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/_111pxh"
+        android:paddingTop="@dimen/_21pxv"
+        android:paddingEnd="@dimen/_111pxh"
+        android:paddingBottom="@dimen/_21pxv"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/txt5palastwelve"
+            style="@style/txtFascinateInlineregular30"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@string/lbl_5_pa_las_12" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameBottombar"
+        app:layout_constraintTop_toBottomOf="@+id/linearColumn5palastwe"
+        android:fillViewport="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            style="@style/groupStylegray_300"
+            android:paddingEnd="@dimen/_11pxh"
+            android:paddingStart="@dimen/_11pxh">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create a Business"
+                android:gravity="center"
+                android:textSize="40sp"
+                style="@style/txtInterregular40"
+                />
+
+            <TextView android:ellipsize="end"
+                android:id="@+id/txtLogin"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:singleLine="true"
+                android:textSize="18sp"
+                style="@style/txtInterregular11"
+                android:layout_marginTop="@dimen/_10pxv"
+                android:text="@string/msg_business_details"/>
+
+            <EditText
+                android:background="@drawable/rectangle_border_blue_gray_400_radius_8"
+                android:ellipsize="end"
+                android:hint="@string/lbl_enter_business_name"
+                android:id="@+id/etBusinessName"
+                android:inputType="text"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:paddingHorizontal="@dimen/_14pxh"
+                android:paddingVertical="@dimen/_14pxv"
+                android:singleLine="true"
+                android:textColorHint="@color/blue_gray_400"
+                style="@style/etRoundedOutline" tools:ignore="Autofill"/>
+
+            <EditText
+                android:background="@drawable/rectangle_border_blue_gray_400_radius_8"
+                android:ellipsize="end"
+                android:hint="@string/lbl_enter_business_latitude"
+                android:id="@+id/etBusinessLatitude"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12pxv"
+                android:layout_width="match_parent"
+                android:paddingHorizontal="@dimen/_14pxh"
+                android:paddingVertical="@dimen/_14pxv"
+                android:singleLine="true"
+                android:textColorHint="@color/blue_gray_400"
+                style="@style/etRoundedOutline" tools:ignore="Autofill"/>
+
+            <EditText
+                android:background="@drawable/rectangle_border_blue_gray_400_radius_8"
+                android:ellipsize="end"
+                android:hint="@string/lbl_enter_business_longitude"
+                android:id="@+id/etBusinessLongitude"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12pxv"
+                android:layout_width="match_parent"
+                android:paddingHorizontal="@dimen/_14pxh"
+                android:paddingVertical="@dimen/_14pxv"
+                android:singleLine="true"
+                android:textColorHint="@color/blue_gray_400"
+                style="@style/etRoundedOutline" tools:ignore="Autofill"/>
+
+            <EditText
+                android:background="@drawable/rectangle_border_blue_gray_400_radius_8"
+                android:drawablePadding="@dimen/_30pxh"
+                android:ellipsize="end"
+                android:hint="@string/lbl_enter_business_photo"
+                android:id="@+id/etBusinessPhoto"
+                android:inputType="textUri"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12pxv"
+                android:layout_width="match_parent"
+                android:paddingBottom="@dimen/_14pxv"
+                android:paddingEnd="@dimen/_14pxh"
+                android:paddingStart="@dimen/_14pxh"
+                android:paddingTop="@dimen/_14pxv" android:singleLine="true"
+                android:textColorHint="@color/blue_gray_400"
+                style="@style/etRoundedOutline" tools:ignore="Autofill"/>
+
+            <EditText
+                android:background="@drawable/rectangle_border_blue_gray_400_radius_8"
+                android:drawablePadding="@dimen/_30pxh"
+                android:ellipsize="end"
+                android:hint="@string/lbl_enter_business_categories"
+                android:id="@+id/etBusinessCategories"
+                android:inputType="text"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12pxv"
+                android:layout_width="match_parent"
+                android:paddingBottom="@dimen/_14pxv"
+                android:paddingEnd="@dimen/_14pxh"
+                android:paddingStart="@dimen/_14pxh"
+                android:paddingTop="@dimen/_14pxv" android:singleLine="true"
+                android:textColorHint="@color/blue_gray_400"
+                style="@style/etRoundedOutline" tools:ignore="Autofill"/>
+            <EditText
+                android:background="@drawable/rectangle_border_blue_gray_400_radius_8"
+                android:drawablePadding="@dimen/_30pxh"
+                android:ellipsize="end"
+                android:hint="@string/lbl_enter_business_description"
+                android:id="@+id/etBusinessDescription"
+                android:inputType="text"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12pxv"
+                android:layout_width="match_parent"
+                android:paddingBottom="@dimen/_14pxv"
+                android:paddingEnd="@dimen/_14pxh"
+                android:paddingStart="@dimen/_14pxh"
+                android:paddingTop="@dimen/_14pxv" android:singleLine="true"
+                android:textColorHint="@color/blue_gray_400"
+                style="@style/etRoundedOutline" tools:ignore="Autofill"/>
+            <EditText
+                android:background="@drawable/rectangle_border_blue_gray_400_radius_8"
+                android:drawablePadding="@dimen/_30pxh"
+                android:ellipsize="end"
+                android:hint="@string/lbl_enter_business_rating"
+                android:id="@+id/etBusinessRating"
+                android:inputType="numberDecimal"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12pxv"
+                android:layout_width="match_parent"
+                android:paddingBottom="@dimen/_14pxv"
+                android:paddingEnd="@dimen/_14pxh"
+                android:paddingStart="@dimen/_14pxh"
+                android:paddingTop="@dimen/_14pxv" android:singleLine="true"
+                android:textColorHint="@color/blue_gray_400"
+                style="@style/etRoundedOutline" tools:ignore="Autofill"/>
+            <EditText
+                android:background="@drawable/rectangle_border_blue_gray_400_radius_8"
+                android:drawablePadding="@dimen/_30pxh"
+                android:ellipsize="end"
+                android:hint="@string/lbl_enter_business_address"
+                android:id="@+id/etBusinessAddress"
+                android:inputType="text"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12pxv"
+                android:layout_width="match_parent"
+                android:paddingBottom="@dimen/_14pxv"
+                android:paddingEnd="@dimen/_14pxh"
+                android:paddingStart="@dimen/_14pxh"
+                android:paddingTop="@dimen/_14pxv" android:singleLine="true"
+                android:textColorHint="@color/blue_gray_400"
+                style="@style/etRoundedOutline" tools:ignore="Autofill"/>
+            <Button
+                android:ellipsize="end" android:gravity="center"
+                android:id="@+id/btnSaveBusiness"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_40pxv"
+                android:layout_width="match_parent"
+                android:paddingBottom="@dimen/_13pxv"
+                android:paddingEnd="@dimen/_30pxh"
+                android:paddingStart="@dimen/_30pxh"
+                android:paddingTop="@dimen/_13pxv" android:singleLine="true"
+                android:text="@string/lbl_save_business"
+                android:textAllCaps="false" style="@style/btnSolidRounded"
+                />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/frameBottombar"
+        style="@style/groupStylegray_800cornerRadius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearRowhome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_21pxv"
+            android:layout_marginBottom="@dimen/_21pxv"
+            android:baselineAligned="true"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/linearColumnHome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_8pxh"
+                android:paddingEnd="@dimen/_8pxh">
+
+                <ImageView
+                    android:id="@+id/imageHomeImage"
+                    android:layout_width="@dimen/_32pxh"
+                    android:layout_height="@dimen/_32pxh"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_3pxv"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_icons8_home_100"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/img_icons8_home_100" />
+
+                <TextView
+                    android:id="@+id/txtHome"
+                    style="@style/txtInderregular10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2pxh"
+                    android:layout_marginEnd="@dimen/_2pxh"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="@string/lbl_home" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearColumnSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2pxv"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageSearchImage"
+                    android:layout_width="@dimen/_32pxh"
+                    android:layout_height="@dimen/_32pxh"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_icons8_search_100"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/img_icons8_search_100" />
+
+                <TextView
+                    android:id="@+id/txtSearch"
+                    style="@style/txtInterregular10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="@string/lbl_search"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearColumnMaps"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2pxv"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageMapsImage"
+                    android:layout_width="@dimen/_32pxh"
+                    android:layout_height="@dimen/_32pxh"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_icons8_map_100_1"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/img_icons8_map_100_1" />
+
+                <TextView
+                    android:id="@+id/txtMaps"
+                    style="@style/txtInterregular10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2pxh"
+                    android:layout_marginEnd="@dimen/_2pxh"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="@string/lbl_maps" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearColumnProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2pxv"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                style="@style/groupStylegray_600cornerRadius"
+                >
+
+                <ImageView
+                    android:id="@+id/imageProfileImage"
+                    android:layout_width="@dimen/_32pxh"
+                    android:layout_height="@dimen/_32pxh"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_icons8_user_100"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/img_icons8_user_100" />
+
+                <TextView
+                    android:id="@+id/txtProfile"
+                    style="@style/txtInterregular10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2pxh"
+                    android:layout_marginEnd="@dimen/_2pxh"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="@string/lbl_profile" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

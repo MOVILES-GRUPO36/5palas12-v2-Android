@@ -1,12 +1,18 @@
 package com.papigelvez.a5palas12.home
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
@@ -21,6 +27,11 @@ import com.papigelvez.a5palas12.map.MapActivity
 import com.papigelvez.a5palas12.profile.ProfileActivity
 import com.papigelvez.a5palas12.register.RegisterActivity
 import com.papigelvez.a5palas12.search.SearchActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class HomeActivity : AppCompatActivity() {
 
@@ -28,6 +39,9 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var restaurantAdapter: HomeRestaurantAdapter
     private val viewModel: HomeViewModel by viewModels { HomeViewModelFactory(HomeModel(applicationContext), this) }
+    private lateinit var sharedPreferences: SharedPreferences
+    private val firestore = FirebaseFirestore.getInstance()
+    private lateinit var logoutReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +51,28 @@ class HomeActivity : AppCompatActivity() {
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
 
+        sharedPreferences = getSharedPreferences("LoginCreds", Context.MODE_PRIVATE)
+
         setContentView(binding.root)
 
         setupRecyclerView()
         observeViewModel()
 
+        fetchUserRestaurant()
+
         initUI()
+
+        //terminar la actividad si se hace logout
+        logoutReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (intent?.action == "LOGOUT_EVENT") {
+                    finish()
+                }
+            }
+        }
+
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(logoutReceiver, IntentFilter("LOGOUT_EVENT"))
     }
 
     //binding del adapter
@@ -92,4 +122,45 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun fetchUserRestaurant() {
+        CoroutineScope(Dispatchers.IO).launch {
+            // obtener el correo del usuario en sharedPreferences
+            val email = sharedPreferences.getString("email", null)
+            if (email != null) {
+                try {
+                    // obtener snapshot de firestore
+                    val userSnapshot = firestore.collection("users")
+                        .whereEqualTo("email", email)
+                        .get()
+                        .await()
+
+                    // si se encuentra el documento, obtener valor de restaurante
+                    if (!userSnapshot.isEmpty) {
+                        val userDocument = userSnapshot.documents.first()
+                        val restaurant = userDocument.getString("restaurant") ?: ""
+
+                        // guardar valor de restaurante en sharedPreferences
+                        sharedPreferences.edit()
+                            .putString("userRestaurant", restaurant)
+                            .apply()
+                    } else {
+                        // mensajes Toast con el thread Main
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@HomeActivity, "No user found with this email.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    // mensajes Toast con el thread Main
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@HomeActivity, "Error fetching user data. Check your connection.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(logoutReceiver)
+    }
 }
