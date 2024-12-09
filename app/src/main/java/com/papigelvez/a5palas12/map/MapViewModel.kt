@@ -61,5 +61,8 @@ class MapViewModel : ViewModel() {
         }
     }
 
+    fun clearCache() {
+        mapModel.clearCache()
+    }
 }
 
