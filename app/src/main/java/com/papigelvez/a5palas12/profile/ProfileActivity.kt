@@ -110,6 +110,7 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    //dialogo de alerta
     private fun confirmDeletion() {
         val userRestaurant = sharedPreferences.getString("userRestaurant", "")
         AlertDialog.Builder(this)
@@ -122,6 +123,7 @@ class ProfileActivity : AppCompatActivity() {
             .show()
     }
 
+    //eliminar restaurante con corrutina IO luego de revisar conexion y que existan las sharedPrefs
     private fun deleteRestaurant() {
         val userRestaurant = sharedPreferences.getString("userRestaurant", null)
         val userEmail = sharedPreferences.getString("email", null)
@@ -136,20 +138,21 @@ class ProfileActivity : AppCompatActivity() {
             return
         }
 
-        // Launch a coroutine on the I/O dispatcher for Firestore operations
+        // lanzar la corrutina IO para operaciones que necesiten red (firestore)
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Delete the restaurant from "restaurants" collection
+                // obtener el snapshot de restaurantes con ese nombre
                 val querySnapshot = firestore.collection("restaurants")
                     .whereEqualTo("name", userRestaurant)
                     .get()
                     .await()
 
+                //eliminar documento del restaurante
                 if (!querySnapshot.isEmpty) {
                     val restaurantDoc = querySnapshot.documents.first()
                     restaurantDoc.reference.delete().await()
 
-                    // Delete the "restaurant" attribute from the user document
+                    // llamar la suspend function para eliminar definitivamente el restaurante
                     deleteUserRestaurant(userEmail, userRestaurant)
                 } else {
                     withContext(Dispatchers.Main) {
@@ -164,14 +167,17 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    //elimina restaurante tanto de firestore (usuario) como de sharedPrefs
     private suspend fun deleteUserRestaurant(email: String, restaurant: String) {
         try {
+            //obtener el snapshot de usuarios que tengan el correo de sharedPrefs
             val querySnapshot = firestore.collection("users")
                 .whereEqualTo("email", email)
                 .get()
                 .await()
 
             if (!querySnapshot.isEmpty) {
+                //eliminar atributo "restaurant" del usuario
                 val userDoc = querySnapshot.documents.first()
                 userDoc.reference.update("restaurant", FieldValue.delete()).await()
 

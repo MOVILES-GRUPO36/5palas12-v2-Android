@@ -7,6 +7,7 @@ import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -73,12 +74,30 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onResume()
         //volver a obtener la ubicacion del usuario
         viewModel.getCurrentLocationUser(this)
+
+        //obtener ultima ubicacion del usuario
+        val savedLocation = getUserLocation(this)
+        val currentLocation = viewModel.currentLocation.value
+
+        if (savedLocation != null && currentLocation != null) {
+            //comparar ultima ubicacion vs actual
+            val distance = savedLocation.distanceTo(currentLocation)
+            if (distance > 5000) { // More than 5km
+                Log.d("MapActivity", "Location changed by more than 5km, clearing cache")
+                viewModel.clearCache()
+                viewModel.fetchAllRestaurants()
+            }
+        }
     }
 
     private fun observeViewModel() {
         //observar ubicacion actual
         viewModel.currentLocation.observe(this) { location ->
             updateCurrentLocationMarker(location)
+
+            //guardar en sharedPreferences la ubicacion del usuario
+            saveUserLocation(this, location)
+
             viewModel.fetchAllRestaurants()
         }
 
@@ -188,4 +207,28 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    //guardar ultima ubicacion del usuario a SharedPrefs
+    private fun saveUserLocation(context: Context, location: Location) {
+        val sharedPreferences = context.getSharedPreferences("UserLocationPrefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().apply {
+            putString("latitude", location.latitude.toString())
+            putString("longitude", location.longitude.toString())
+            apply()
+        }
+    }
+
+    //obtener ultima ubicacion del usuario de SharedPrefs
+    private fun getUserLocation(context: Context): Location? {
+        val sharedPreferences = context.getSharedPreferences("UserLocationPrefs", Context.MODE_PRIVATE)
+        val latitude = sharedPreferences.getString("latitude", null)?.toDoubleOrNull()
+        val longitude = sharedPreferences.getString("longitude", null)?.toDoubleOrNull()
+        return if (latitude != null && longitude != null) {
+            Location("").apply {
+                this.latitude = latitude
+                this.longitude = longitude
+            }
+        } else {
+            null
+        }
+    }
 }
